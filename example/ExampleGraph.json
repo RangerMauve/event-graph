@@ -1,0 +1,33 @@
+{
+	"graph": {
+		"type": "ExampleGraph",
+		"nodes": [{
+			"id": "name",
+			"type": "Value",
+			"metadata": {
+				"value": "World"
+			}
+		}, {
+			"id": "greeter",
+			"type": "./example/DeclarativeNodeExample"
+		}, {
+			"id": "console",
+			"type": "./ConsoleNode"
+		}],
+		"edges": [{
+			"source": "name",
+			"target": "greeter",
+			"metadata": {
+				"output": "value",
+				"input": "name"
+			}
+		}, {
+			"source": "greeter",
+			"target": "console",
+			"metadata": {
+				"output": "greeting",
+				"input": "data"
+			}
+		}]
+	}
+}

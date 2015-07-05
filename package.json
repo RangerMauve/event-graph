@@ -1,0 +1,35 @@
+{
+  "name": "event-graph",
+  "version": "1.0.0",
+  "description": "Make an application by composing nodes in a graph. Uses events behind the scenes.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RangerMauve/event-graph.git"
+  },
+  "keywords": [
+    "event",
+    "graph",
+    "nodes",
+    "flow"
+  ],
+  "author": "rangermauve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RangerMauve/event-graph/issues"
+  },
+  "homepage": "https://github.com/RangerMauve/event-graph#readme",
+  "dependencies": {
+    "asap": "^2.0.3",
+    "mqtt-emitter": "^1.2.0",
+    "par": "^0.3.0",
+    "prop": "^0.1.1",
+    "subemitter": "^1.0.0"
+  }
+}
