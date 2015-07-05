@@ -1,3 +1,5 @@
+var noop = require("no-op");
+
 // Export the Name of the node to render as the label
 module.exports.name = "Node";
 
@@ -11,4 +13,9 @@ module.exports.outputs = [];
 module.exports.create = function (events) {
 	// Start listening on events.
 	// The events will automatically get prefixed for you
+
+	// Return an object with a "dispose" method that will clean up all resources
+	return {
+		dispose: noop
+	}
 }

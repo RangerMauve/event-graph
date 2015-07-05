@@ -30,7 +30,19 @@ function Graph(config, require) {
 		graph.edges.filter(has_metadata).forEach(add_edge);
 
 		// Create all the graph's nodes, they should in turn start listening on thir events
-		graph.nodes.filter(get_type).forEach(create_node);
+		var nodes = graph.nodes.filter(get_type).map(create_node);
+
+		return {
+			dispose: dispose
+		};
+
+		function dispose() {
+			return nodes.map(dispose_node);
+		}
+
+		function dispose_node(node) {
+			node.dispose();
+		}
 
 		function create_node(node) {
 			var type = node.type;
@@ -42,7 +54,14 @@ function Graph(config, require) {
 				Node = require(node.type);
 			}
 
-			Node.create(node_events);
+			var created = Node.create(node_events);
+
+			return {
+				dispose: function () {
+					node_events.removeAllListeners();
+					return created.dispose();
+				}
+			};
 		}
 
 		function add_edge(edge) {

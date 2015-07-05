@@ -28,6 +28,7 @@
   "dependencies": {
     "asap": "^2.0.3",
     "mqtt-emitter": "^1.2.0",
+    "no-op": "^1.0.3",
     "par": "^0.3.0",
     "prop": "^0.1.1",
     "subemitter": "^1.0.0"

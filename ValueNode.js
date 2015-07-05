@@ -1,4 +1,5 @@
 var asap = require("asap");
+var noop = require("no-op");
 
 module.exports = ValueNode;
 
@@ -23,5 +24,9 @@ function ValueNode(value) {
 		asap(function () {
 			events.emit("out/value", value);
 		});
+
+		return {
+			dispose: noop
+		};
 	}
 }

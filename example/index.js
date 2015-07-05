@@ -1,10 +1,13 @@
 var util = require("util");
 var runGraph = require("../index.js");
 
-var graph = require("./ExampleGraph");
+var graphConfig = require("./ExampleGraph");
 
-var events = runGraph(graph);
+var graph = runGraph(graphConfig);
+var events = graph.events;
 
 events.on("#", function (data, params, path) {
 	console.log("Event:", path, ":", data);
 });
+
+graph.dispose();

@@ -11,7 +11,15 @@ module.exports = runGraph;
  */
 function runGraph(graph) {
 	var events = new MQTTEmitter();
-	Graph(graph, require.main.require).create(events);
+	var created = Graph(graph, require.main.require).create(events);
 
-	return events;
+	return {
+		events: events,
+		dispose: dispose
+	};
+
+	function dispose() {
+		events.removeAllListeners();
+		return created.dispose();
+	}
 }

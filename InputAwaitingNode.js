@@ -10,10 +10,11 @@ module.exports = InputAwaitingNode;
  * @param  {String}   name    The name of the new Node type being created
  * @param  {Array}    inputs  List of input names
  * @param  {Array}    outputs List of output names this node will provide
+ * @param  {Function} dispose Optional function that will be called to clean up the state of the node
  * @param  {Function} update  Function that gets called when inputs update. Takes arguments that correspond to the list of inputs
  * @return {Node}             The new Node definition
  */
-function InputAwaitingNode(name, inputs, outputs, update) {
+function InputAwaitingNode(name, inputs, outputs, update, dispose) {
 	var input_map = inputs.reduce(function (map, name) {
 		map[name] = function (data) {
 			this.input[name] = data;
@@ -26,7 +27,7 @@ function InputAwaitingNode(name, inputs, outputs, update) {
 		return map;
 	});
 
-	return DeclarativeNode(name, input_map, outputs, initial_state);
+	return DeclarativeNode(name, input_map, outputs, initial_state, dispose);
 
 	function initial_state() {
 		return {
