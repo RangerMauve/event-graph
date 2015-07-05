@@ -9,5 +9,3 @@ var events = graph.events;
 events.on("#", function (data, params, path) {
 	console.log("Event:", path, ":", data);
 });
-
-graph.dispose();

@@ -12,7 +12,7 @@
 			"type": "./example/DeclarativeNodeExample"
 		}, {
 			"id": "console",
-			"type": "./ConsoleNode"
+			"type": "./core/ConsoleNode"
 		}],
 		"edges": [{
 			"source": "name",

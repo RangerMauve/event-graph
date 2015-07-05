@@ -1,4 +1,4 @@
-var DeclarativeNode = require("../DeclarativeNode");
+var DeclarativeNode = require("../core/DeclarativeNode");
 
 // A name for this type of node
 var name = "ExampleDeclarativeNode";

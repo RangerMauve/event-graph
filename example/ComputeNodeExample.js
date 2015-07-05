@@ -1,4 +1,4 @@
-var ComputeNode = require("../ComputeNode");
+var ComputeNode = require("../core/ComputeNode");
 
 // A name for this type of node
 var name = "FriendList";

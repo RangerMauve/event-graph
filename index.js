@@ -1,6 +1,6 @@
 var MQTTEmitter = require("mqtt-emitter");
 var SubEmitter = require("subemitter");
-var Graph = require("./Graph");
+var Graph = require("./core/Graph");
 
 module.exports = runGraph;
 
