@@ -19,6 +19,7 @@ function DeclarativeNode(name, input_map, output_names, initial_state, dispose) 
 	initial_state = initial_state || default_state;
 
 	return {
+		name: name,
 		inputs: input_names,
 		outputs: output_names,
 		create: create
