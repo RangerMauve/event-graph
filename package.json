@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "Make an application by composing nodes in a graph. Uses events behind the scenes.",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -31,6 +28,11 @@
     "no-op": "^1.0.3",
     "par": "^0.3.0",
     "prop": "^0.1.1",
-    "subemitter": "^1.0.0"
+    "subemitter": "^1.0.0",
+    "xtend": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5"
   }
 }
