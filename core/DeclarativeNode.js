@@ -11,7 +11,7 @@ module.exports = DeclarativeNode;
  * @param  {Object}   input_map     A map of inputName -> inputHandlerFunction
  * @param  {Array}    output_names  THe list of output names
  * @param  {Function} initial_state Optional function that returns the initial state
- * @param  {Function} dispose Optional function that will be called to clean up the state of the node
+ * @param  {Function} dispose       Optional function that will be called to clean up the state of the node
  * @return {Node}                   The Node definition
  */
 function DeclarativeNode(name, input_map, output_names, initial_state, dispose) {
