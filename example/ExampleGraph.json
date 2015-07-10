@@ -3,7 +3,7 @@
 		"type": "ExampleGraph",
 		"nodes": [{
 			"id": "name",
-			"type": "Value",
+			"type": "./core/ValueNode",
 			"metadata": {
 				"value": "World"
 			}

@@ -1,21 +1,23 @@
 var prop = require("prop");
+var endsWith = require("ends-with");
 var SubEmitter = require("subemitter");
 
 var ValueNode = require("./ValueNode");
 
 var has_metadata = prop("metadata");
 var get_id = prop("id");
-var is_input = prop("metadata.input");
-var is_output = prop("metadata.output");
 var get_type = prop("type");
 
 module.exports = Graph;
 
 function Graph(config, require) {
 	var graph = config.graph;
-	var metanodes = graph.nodes.filter(has_metadata);
-	var inputs = metanodes.filter(is_input).map(get_id);
-	var outputs = metanodes.filter(is_output).map(get_id);
+	var nodes = graph.nodes || [];
+	var edges = graph.edges || [];
+
+	var inputs = nodes.filter(is_input).map(get_id);
+	var outputs = nodes.filter(is_output).map(get_id);
+
 	var name = graph.type;
 
 	return {
@@ -27,17 +29,24 @@ function Graph(config, require) {
 
 	function create(events) {
 		// Set up edges
-		graph.edges.filter(has_metadata).forEach(add_edge);
+		edges.filter(has_metadata).forEach(add_edge);
+
+		// Set up graph inputs
+		inputs.forEach(map_graph_input);
+
+		// Set up graph outputs
+		outputs.forEach(map_graph_output);
 
 		// Create all the graph's nodes, they should in turn start listening on thir events
-		var nodes = graph.nodes.filter(get_type).map(create_node);
+		var nodes_disposers = graph.nodes.filter(get_type).map(create_node);
 
 		return {
 			dispose: dispose
 		};
 
+		// Disposes all nodes created by this graph
 		function dispose() {
-			return nodes.map(dispose_node);
+			return nodes_disposers.map(dispose_node);
 		}
 
 		function dispose_node(node) {
@@ -45,19 +54,20 @@ function Graph(config, require) {
 		}
 
 		function create_node(node) {
-			var type = node.type;
-			var node_events = new SubEmitter(events, node.id + "/");
-			var Node;
-			if (type === "Value") {
-				Node = ValueNode(node.metadata.value);
-			} else {
-				Node = require(node.type);
-			}
+			var id = node.id;
+			if (id === "in" || id === "out")
+				throw new TypeError("Nodes can not be named `in` or `out`");
 
-			var created = Node.create(node_events);
+			var type = node.type;
+
+			var node_events = new SubEmitter(events, id + "/");
+
+			var Node = require(node.type);
+
+			var created = Node.create(node_events, node);
 
 			return {
-				dispose: function () {
+				dispose: function() {
 					node_events.removeAllListeners();
 					return created.dispose();
 				}
@@ -70,8 +80,16 @@ function Graph(config, require) {
 			relay(output, input);
 		}
 
+		function map_graph_input(name) {
+			relay("in/" + name, name + "/out/input");
+		}
+
+		function map_graph_output(name) {
+			relay(name + "/in/output", "out/" + name);
+		}
+
 		function relay(output, input) {
-			events.on(output, function (data) {
+			events.on(output, function(data) {
 				try {
 					events.emit(input, data);
 				} catch (e) {
@@ -80,4 +98,12 @@ function Graph(config, require) {
 			});
 		}
 	}
+}
+
+function is_input(node) {
+	return endsWith(node.type, "GraphInputNode");
+}
+
+function is_output(node) {
+	return endsWith(node.type, "GraphOutputNode");
 }
