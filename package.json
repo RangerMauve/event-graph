@@ -24,6 +24,7 @@
   "homepage": "https://github.com/RangerMauve/event-graph#readme",
   "dependencies": {
     "asap": "^2.0.3",
+    "ends-with": "^0.2.0",
     "mqtt-emitter": "^1.2.0",
     "no-op": "^1.0.3",
     "par": "^0.3.0",
@@ -34,5 +35,13 @@
   "devDependencies": {
     "chai": "^3.0.0",
     "mocha": "^2.2.5"
+  },
+  "event-graph": {
+    "nodes":[
+      "core/ValueNode",
+      "core/GraphInputNode",
+      "core/GraphOutputNode",
+      "core/ConsoleNode"
+    ]
   }
 }
